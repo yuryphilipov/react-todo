@@ -1,4 +1,16 @@
-import { ADD_TASK, COMPLETE_TASK, REMOVE_TASK } from "./../constants";
+import {
+  ADD_TASK,
+  COMPLETE_TASK,
+  REMOVE_TASK,
+  CHANGE_TITLE
+} from "./../constants";
+
+export const changeTitle = titleText => {
+  return {
+    type: CHANGE_TITLE,
+    titleText
+  };
+};
 
 export const addTask = (id, text, isCompleted) => {
   return {

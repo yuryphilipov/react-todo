@@ -8,6 +8,21 @@ $item-height: 32px;
   -o-border-radius: $radius; // Opera
 }
 
+.todo-title {
+  width: calc(100% - 20px);
+  padding: 5px 10px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    cursor: text;
+  }
+}
+
 .todo-input {
   border: 1px solid #aaa;
   @include border-radius(4px);

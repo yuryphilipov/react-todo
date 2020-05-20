@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addTask, completeTask, removeTask } from "./../actions/index";
+import {
+  changeTitle,
+  addTask,
+  completeTask,
+  removeTask
+} from "./../actions/index";
+import TodoTitle from "./../components/todo-title";
 import TodoList from "./../components/todo-list";
 import TodoInput from "./../components/todo-input";
 import TodoFooter from "../components/todo-footer";
@@ -21,6 +27,11 @@ class Todo extends Component {
     }
   };
 
+  handleTitleChange = ({ target: { value } }) => {
+    const { changeTitle } = this.props;
+    changeTitle(value);
+  };
+
   handleInputChange = ({ target: { value } }) => {
     this.setState({
       taskText: value
@@ -29,12 +40,13 @@ class Todo extends Component {
 
   render() {
     const { taskText } = this.state;
-    const { tasks, completeTask, removeTask } = this.props;
+    const { title, tasks, completeTask, removeTask } = this.props;
     const isTasksExists = tasks && tasks.length > 0;
     const amountTasks =
       tasks && [...tasks].filter(task => !task.isCompleted).length;
     return (
       <div>
+        <TodoTitle titleText={title} onChange={this.handleTitleChange} />
         <TodoInput
           value={taskText}
           onChange={this.handleInputChange}
@@ -57,12 +69,14 @@ class Todo extends Component {
 
 const mapStateToProps = state => {
   return {
+    title: state.title,
     tasks: state.tasks
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    changeTitle: title => dispatch(changeTitle(title)),
     addTask: (id, text, isCompleted) =>
       dispatch(addTask(id, text, isCompleted)),
     completeTask: id => dispatch(completeTask(id)),
