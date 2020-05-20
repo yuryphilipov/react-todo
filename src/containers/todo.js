@@ -44,6 +44,9 @@ class Todo extends Component {
     const isTasksExists = tasks && tasks.length > 0;
     const amountTasks =
       tasks && [...tasks].filter(task => !task.isCompleted).length;
+    const sortedTasks = [...tasks].sort(
+      (t1, t2) => t1.isCompleted - t2.isCompleted
+    );
     return (
       <div>
         <TodoTitle titleText={title} onChange={this.handleTitleChange} />
@@ -55,7 +58,7 @@ class Todo extends Component {
         {isTasksExists && (
           <>
             <TodoList
-              tasks={tasks}
+              tasks={sortedTasks}
               completeTask={completeTask}
               removeTask={removeTask}
             />
